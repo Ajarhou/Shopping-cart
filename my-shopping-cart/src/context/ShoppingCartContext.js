@@ -6,8 +6,12 @@ const ShoppingCartContext = createContext({});
 
 
 const ShoppingCartProvider = ({ children }) => {
+  const initialCartItems = localStorage.getItem("shopping-cart")
+  ? JSON.parse(localStorage.getItem("shopping-cart"))
+  : [];
 
-  const [cartItems, setCartItems] = useState([]);
+
+  const [cartItems, setCartItems] = useState(initialCartItems);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
