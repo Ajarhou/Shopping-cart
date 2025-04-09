@@ -1,5 +1,6 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
-// import ShoppingCart from "../components/ShoppingCart";
+import ShoppingCart from "../components/ShoppingCart";
 
 const ShoppingCartContext = createContext({});
 
@@ -7,6 +8,7 @@ const ShoppingCartContext = createContext({});
 const ShoppingCartProvider = ({ children }) => {
 
   const [cartItems, setCartItems] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(cartItems));
@@ -16,6 +18,15 @@ const ShoppingCartProvider = ({ children }) => {
     (quantity, item) => item.quantity + quantity,
     0
   );
+  const openCart = ()=>{
+    setIsOpen(true);
+
+  };
+
+  const closeCart = ()=>{
+    setIsOpen(false);
+
+  };
 
  
  
@@ -63,12 +74,15 @@ const ShoppingCartProvider = ({ children }) => {
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
-       
+        isOpen,       
         cartQuantity,
         cartItems,
+        openCart,
+        closeCart
       }}
     >
       {children}
+      <ShoppingCart/>
      
     </ShoppingCartContext.Provider>
   );
